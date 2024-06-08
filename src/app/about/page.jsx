@@ -1,7 +1,7 @@
 'use client';
 
+import { Page } from '../../components';
 import { useState, useEffect } from 'react';
-
 import { Card, KeyValue } from '../../components';
 import { fetchInfoData, fetchLicenseData } from '../../actions/fetchData.js';
 import { FaPhone } from "react-icons/fa";
@@ -28,7 +28,7 @@ const About = () => {
     }, []);
 
     return(
-        <>
+        <Page title="About">
             <div className={ `half_half` }>
                 <Card title="Created by">
                     <div className={ styles.address }>
@@ -59,7 +59,7 @@ const About = () => {
                     }
                 </Card>
             </div>
-        </>
+        </Page>
     )
 }
 
