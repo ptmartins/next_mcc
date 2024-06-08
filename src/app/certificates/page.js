@@ -1,27 +1,11 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import { fetchCertificatesData, fetchLocalCertificatesData } from "@/actions/fetchData";
 import { Page, Card, Table, KeyValue, Button, CopyToClipboard } from "../../components";
 import styles from './certificates.module.css';
 
-const Certificates = () => {
+const Certificates = async () => {
 
-    const [certificates, setCertificates] = useState([]);
-    const [localCerts, setLocalCerts] = useState([]);
-    const fetchCertificates = async () => {
-        const certsResponse = await fetch('https://mcc-dataserver.vercel.app/api/certificates');
-        const localCertsResponse = await fetch('https://mcc-dataserver.vercel.app/api/localCertificates');
-        const certsResult = await certsResponse.json();
-        const localCertsResult = await localCertsResponse.json();
-
-        setCertificates(certsResult);
-        setLocalCerts(localCertsResult);
-    };
-
-    useEffect(() => {
-        fetchCertificates();
-    }, [])
-
+    const certificates = await fetchCertificatesData();
+    const localCerts = await fetchLocalCertificatesData();
 
     const columnsToShow = [
         {
@@ -40,7 +24,6 @@ const Certificates = () => {
             width: '35%'
         }
     ];
-
 
     return(
         <Page title="Certificates">   

@@ -1,29 +1,16 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import { fetchDatabasesData } from '@/actions/fetchData';
 import { Page, Card, Table } from '../../components';
 
-const Databases = () => {
+const Databases = async () => {
 
-    const [databases, setDatabases] = useState([]);
-    const fetchDBData = async () => {
-        const response = await fetch('https://mcc-dataserver.vercel.app/databases');
-        const result = await response.json();
+    const databases = await fetchDatabasesData();
 
-        if(result) {
-            setDatabases(result);
-        }
-    };
     const actions = [
         {
             type: 'primary',
             label: 'Add'
         }
     ];
-
-    useEffect(() => {
-        fetchDBData();
-    },[]);
 
     const columnsToShow = [
         {

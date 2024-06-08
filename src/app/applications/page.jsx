@@ -1,17 +1,10 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import { fetchApplicationsData } from "@/actions/fetchData";
 import { Page, Card, Table } from "../../components";
 
-const Applications = () => {
+const Applications = async () => {
 
-    const [apps, setApps] = useState([]);
-    const fetchApps = async () => {
-        const response = await fetch('https://mcc-dataserver.vercel.app/api/applications');
-        const result = await response.json();
+    const apps = await fetchApplicationsData();
 
-        setApps(result);
-    };
     const actions = [
         {
             type: 'primary',
@@ -19,9 +12,6 @@ const Applications = () => {
         }
     ];
 
-    useEffect(() => {
-        fetchApps();
-    }, [])
 
     const columnsToShow = [
         {
