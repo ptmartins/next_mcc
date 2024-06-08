@@ -93,6 +93,20 @@ ul {
   flex-grow: 1;
 }
 
+/* 404 */
+.notFound {
+  inset-inline-start: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.notFound__title {
+  font-size: 1.5rem;
+  margin-block-start: 1.5rem;
+  text-align: center;
+}
+
 @media (min-width: 640px) {}
 
 @media (min-width: 768px) {}
