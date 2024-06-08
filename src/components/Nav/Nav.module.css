@@ -18,12 +18,12 @@
     margin-block-end: 1.5rem;
 }
 
-.menu_title {
+.menu__title {
     display: none;
     margin-block-end: .375rem;
 }
 
-.nav_link {
+.nav__link {
     align-items: center;
     border-radius: 4px;
     color: var(--menuItem-color);
@@ -35,11 +35,11 @@
     transition: var(--default-transition);
 }
 
-.nav_link:hover {
+.nav__link:hover {
     background-color: var(--accent-fade);
 }
 
-.nav_link.active:hover {
+.nav__link.active:hover {
     background-color: var(--accent-color);
 }
 
@@ -56,7 +56,7 @@
     margin-inline-end: .75rem;
 }
 
-.nav_link.active .icon {
+.nav__link.active .icon {
     color: #fff;
 }
 
@@ -79,7 +79,7 @@
         width: 280px;
     }
 
-    .menu_title {
+    .menu__title {
         display: block;
     }
 
