@@ -1,0 +1,26 @@
+.keyValue {
+    align-items: center;
+    border-block-end: 1px solid var(--fade-dark);
+    display: flex;
+    margin-block-end: .375rem;
+    padding: .375rem 0;
+}
+
+.keyValue:last-child {
+    border-block-end: 0;
+}
+
+.key,
+.value {
+    flex: 1 0 0;
+}
+
+.key {
+    font-weight: 600; 
+    text-align: start;
+}
+
+.value {
+    font-weight: 300;
+    text-align: end;
+}

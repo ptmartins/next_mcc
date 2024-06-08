@@ -1,0 +1,11 @@
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-block-end: .75rem;  
+    padding: 1.5rem;
+}
+
+.title {
+    font-size: 1.3rem;
+    margin-block-end: 1.5rem;
+}
