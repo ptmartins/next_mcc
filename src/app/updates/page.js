@@ -1,74 +1,44 @@
-'use client';
-
-import { useState, useEffect } from "react";
-import { Page, Card, Accordion } from "../../components";
+import { fetchUpdatesData } from "@/actions/fetchData";
+import { Page, Accordion } from "../../components";
 import styles from './updates.module.css';
 
-const Updates = () => {
+const Updates = async () => {
 
-    let [updates, setUpdates] = useState([]);
-    const [releases, setReleases] = useState([]);
-    const [accordionData, setAccordionData] = useState([]);
-    const fetchUpdates = async () => {
-        const response = await fetch('https://mcc-dataserver.vercel.app/api/updates');
-        const res = await response.json();
+    const updates = await fetchUpdatesData();
+    const releases = await updates.releases;
+    const accordionData = async () => {
+        const updatedData = releases.map(release => {
 
-        setUpdates(res);
-    }
+            let result = {
+                title: null,
+                content: null
+            }
 
-
-    /**
-     * Fetch updates data
-     */
-    useEffect(() => {
-        fetchUpdates();
-    }, [])
-
-
-    /**
-     * On updatesData, set releases
-     */
-    useEffect(() => {
-        setReleases(updates.releases);
-    }, [updates])
-
-
-    /**
-     * On releases, set Accordion data
-     */
-    useEffect(() => {
-        if(releases) {
-            const updatedData = releases.map(release => {
-
-                let result = {
-                    title: null,
-                    content: null
+            Object.keys(release).map(item => {
+                switch(item) {
+                    case('version'):
+                        result.title = release[item];
+                        break;
+                    case('release_notes'):
+                        result.content = release[item][0].note;  
+                        break;
+                    default: break;                  
                 }
-
-                Object.keys(release).map(item => {
-                    switch(item) {
-                        case('version'):
-                            result.title = release[item];
-                            break;
-                        case('release_notes'):
-                            result.content = release[item][0].note;  
-                            break;
-                        default: break;                  
-                    }
-                })
-
-                return result;
             })
 
-            setAccordionData(updatedData);
-        }
+            return result;
+        })
 
-    }, [releases])
+        return updatedData;
+
+    }
+
+    const data = await accordionData();
 
     return(
         <Page title="Updates">
             {
-                accordionData.length > 0 ? <Accordion items={ accordionData } /> : ''
+                data.length > 0 ? <Accordion items={ data } /> : ''
             }
         </Page>        
     )
