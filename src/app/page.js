@@ -14,6 +14,7 @@ import {
   } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { fileSizeConvert, formatTimeStamp } from './utils';
+import LoginForm from '@/components/LoginForm/LoginForm';
 
 ChartJS.register(
     CategoryScale,
@@ -43,6 +44,12 @@ const setTimeLabels = (count, hoursInterval) => {
 }
 
 export default function Home() {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const handleLogin = val => {
+      setIsLoggedIn(val);
+    }
 
     const [data, setData] = useState([]);
     const [labels, setLabels] = useState([]);
@@ -93,33 +100,34 @@ export default function Home() {
     }, [chartData]); 
 
     return(
-        <Page title="Home">
-            <div className={ `half_half` }>
-                <Card title="Details">
-                    <KeyValue label="Version: " value={ data.version } />
-                    <KeyValue label="Service running as user: " value={ data.account } />
-                    <KeyValue label="Process up-time: " value={ formatTimeStamp(data.up_time) } />
-                    <KeyValue label="System up-time: " value={ formatTimeStamp(data.server_up_time) } />
-                    <KeyValue label="Memory usage: " value={ fileSizeConvert(data.memory_usage, undefined, ' ') } />
-                    <KeyValue label="Databases: " value={ data.databases } />
-                    <KeyValue label="Running SOLR instances: " value={ data.solr_instance } />
-                    <KeyValue label="Database backup: " value={ formatTimeStamp(data.last_backup) } /> 
-                </Card>
-                <Card title="Job counts">
-                    <KeyValue label="Processing: " value={ data.processing } />
-                    <KeyValue label="Total completed: " value={ data.completed } />
-                    <KeyValue label="Total failed: " value={ data.failed } />
-                    <KeyValue label="Failed, retryable: " value={ data.retryable_jobs } />
-                </Card>
-            </div>
-            <div className={ `half_half` }>
-                <Card title="Jobs completed in the last 12 hours">
+        isLoggedIn ?
+            <Page title="Home">
+                <div className={ `half_half` }>
+                    <Card title="Details">
+                        <KeyValue label="Version: " value={ data.version } />
+                        <KeyValue label="Service running as user: " value={ data.account } />
+                        <KeyValue label="Process up-time: " value={ formatTimeStamp(data.up_time) } />
+                        <KeyValue label="System up-time: " value={ formatTimeStamp(data.server_up_time) } />
+                        <KeyValue label="Memory usage: " value={ fileSizeConvert(data.memory_usage, undefined, ' ') } />
+                        <KeyValue label="Databases: " value={ data.databases } />
+                        <KeyValue label="Running SOLR instances: " value={ data.solr_instance } />
+                        <KeyValue label="Database backup: " value={ formatTimeStamp(data.last_backup) } /> 
+                    </Card>
+                    <Card title="Job counts">
+                        <KeyValue label="Processing: " value={ data.processing } />
+                        <KeyValue label="Total completed: " value={ data.completed } />
+                        <KeyValue label="Total failed: " value={ data.failed } />
+                        <KeyValue label="Failed, retryable: " value={ data.retryable_jobs } />
+                    </Card>
+                </div>
+                <div className={ `half_half` }>
+                    <Card title="Jobs completed in the last 12 hours">
 
-                </Card>
-                <Card title="Jobs failed in the last 12 hours">
+                    </Card>
+                    <Card title="Jobs failed in the last 12 hours">
 
-                </Card>
-            </div>
-        </Page>
+                        </Card>
+                    </div>
+            </Page> : <LoginForm cb={ handleLogin } />
     )
 }

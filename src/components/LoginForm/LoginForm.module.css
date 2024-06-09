@@ -1,6 +1,6 @@
 .login__overlay {
     align-items: center;
-    background-color: rgba(0, 0, 0, .85);
+    background-color: #2f2f2f;
     display: flex;
     height: 100vh;
     inset-inline-start: 0;
