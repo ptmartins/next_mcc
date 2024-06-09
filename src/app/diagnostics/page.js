@@ -1,21 +1,9 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import { fetchDiagnosticsData } from "@/actions/fetchData";
 import { Page, Card, Table } from "../../components";
 
-const Diagnostics = () => {
+const Diagnostics = async () => {
 
-    const [diagnostics, setDiagnostics] = useState([]);
-    const fetchDiagnostics = async () => {
-        const response = await fetch('https://mcc-dataserver.vercel.app/api/diagnostics');
-        const result = await response.json();
-
-        setDiagnostics(result);
-    }
-
-    useEffect(() => {
-        fetchDiagnostics();
-    }, [])
+    const diagnostics = await fetchDiagnosticsData();
 
     const columnsToShow = [
         {

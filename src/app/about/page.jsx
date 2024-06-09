@@ -1,31 +1,16 @@
-'use client';
-
 import { Page } from '../../components';
-import { useState, useEffect } from 'react';
 import { Card, KeyValue } from '../../components';
-import { fetchInfoData, fetchLicenseData } from '../../actions/fetchData.js';
+import { fetchInfoData, fetchLicenseData } from '@/actions/fetchData.js';
 import { FaPhone } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { v4 as uuid } from 'uuid';
 import styles from './about.module.css';
 
-const About = () => {
+const About = async () => {
 
-    const [info, setInfo] = useState(null);
-    const [license, setLicense] = useState(null);
-    const [plugins, setPlugins] = useState([]);
-
-    useEffect(() => {
-      async function getData() {
-        const info = await fetchInfoData();
-        const license = await fetchLicenseData();
-        setInfo(info);
-        setPlugins(license.plugins);
-        setLicense(license);
-      }
-
-      getData();
-    }, []);
+    const info = await fetchInfoData();
+    const license = await fetchLicenseData();
+    const plugins = await license.plugins;
 
     return(
         <Page title="About">

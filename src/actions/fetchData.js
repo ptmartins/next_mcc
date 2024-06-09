@@ -76,3 +76,58 @@ export async function fetchLocalCertificatesData() {
     return(data); 
   }
 };
+
+export async function fetchToolsData() {
+  const res = await fetch('https://mcc-dataserver.vercel.app/api/tools');  
+
+  if(!res.ok) {
+    throw new Error(`Failed to fetch 'Tools' data.`);
+  } else {
+    const data= await res.json();
+    return(data); 
+  }
+};
+
+export async function fetchUpdatesData() {
+  const res = await fetch('https://mcc-dataserver.vercel.app/api/updates');  
+
+  if(!res.ok) {
+    throw new Error(`Failed to fetch 'Updates' data.`);
+  } else {
+    const data= await res.json();
+    return(data); 
+  }
+};
+
+export async function fetchResourceGroupsData() {
+  const res = await fetch('https://mcc-dataserver.vercel.app/api/resourceGroups');  
+
+  if(!res.ok) {
+    throw new Error(`Failed to fetch 'Resource Groups' data.`);
+  } else {
+    const data= await res.json();
+    return(data); 
+  }
+};
+
+export async function fetchDiagnosticsData() {
+  const res = await fetch('https://mcc-dataserver.vercel.app/api/diagnostics');  
+
+  if(!res.ok) {
+    throw new Error(`Failed to fetch 'Diagnostics' data.`);
+  } else {
+    const data= await res.json();
+    return(data); 
+  }
+};
+
+export async function fetchLogsData() {
+  const res = await fetch('https://mcc-dataserver.vercel.app/api/tabs');  
+
+  if(!res.ok) {
+    throw new Error(`Failed to fetch 'Logs' data.`);
+  } else {
+    const data= await res.json();
+    return(data); 
+  }
+};

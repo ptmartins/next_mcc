@@ -1,17 +1,10 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+ import { fetchResourceGroupsData } from "@/actions/fetchData";
 import { Page, Card, Table } from "../../components";
 
-const ResourceGroups = () => {
+const ResourceGroups = async () => {
 
-    const [groups, setGroups] = useState([]);
-    const fetchGroups = async () => {
-        const response = await fetch('https://mcc-dataserver.vercel.app/api/resourceGroups');
-        const result = await response.json();
+    const groups = await fetchResourceGroupsData();
 
-        setGroups(result);
-    };
     const actions = [
         {
             type: 'primary',
@@ -22,10 +15,6 @@ const ResourceGroups = () => {
             label: 'Refresh'
         }
     ];
-
-    useEffect(() => {
-        fetchGroups();
-    }, [])
 
     const columnsToShow = [
         {

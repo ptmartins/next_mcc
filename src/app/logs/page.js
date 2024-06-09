@@ -1,21 +1,11 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import { fetchLogsData } from "@/actions/fetchData";
 import { Card, Page, TabMenu, Table} from '../../components';
 
-export default function Logs() {
+export default async function Logs() {
 
-    const [data, setData] = useState({});
-    const fetchData = async () => {
-        const response = await fetch('https://mcc-dataserver.vercel.app/api/tabs');
-        const result = await response.json();
+    const logs = await fetchLogsData();
 
-        setData(result);
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    console.log(logs);
 
     return(
         <Page title="Logs">

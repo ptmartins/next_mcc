@@ -1,33 +1,21 @@
-'use client';
-
-import { useState, useEffect } from "react";
+import { fetchToolsData } from "@/actions/fetchData";
 import { Card, Page, Input, Button } from "../../components";
 import { IoMdDownload } from "react-icons/io";
 
-const RemoteTools = () => {
+const RemoteTools = async () => {
 
-    const [data, setData] = useState([]);
-    const fetchData = async () => {
-        const response = await fetch('https://mcc-dataserver.vercel.app/api/tools');
-        const result = await response.json();
-
-        setData(result);
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, [])
+    const tools = await fetchToolsData();
 
     return(
         <Page title="Remote tools">
             <div className="thirds">
                 <Card>
                     {
-                        Object.keys(data).map((key, index) => {
+                        Object.keys(tools).map((key, index) => {
                             return(
                                 key === 'rdp_port' ?
                                     <div key={ index }>
-                                        <Input label="RDP port number" value={ data[key] } onChange={() => false} readOnly={true} /> 
+                                        <Input label="RDP port number" value={ tools[key] } readOnly={true} /> 
                                         <Button type="submit">Workflow editor <IoMdDownload /> </Button> 
                                     </div> 
                                     :  ''  
