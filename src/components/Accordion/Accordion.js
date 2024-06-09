@@ -10,6 +10,8 @@ const Accordion = ({items}) => {
       setActiveIndex(index === activeIndex ? null : index);
     };
 
+    console.log(items);
+
     return(
         <div className={styles.accordion}>
             {items.map((item, index) => (
@@ -20,7 +22,7 @@ const Accordion = ({items}) => {
                         {item.title}
                     </div>
                     <div className={styles.accordion_content}>
-                        <p>{item.content}</p>
+                        {item.content.map((item, index) => <p key={index}> {item} </p>)}
                     </div>
 
                 </div>

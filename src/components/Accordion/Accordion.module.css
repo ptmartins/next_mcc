@@ -39,7 +39,12 @@
 }
 
 .accordion_content p {
-    padding: .1875rem 1.5rem 1.5rem;
+    padding: .375rem 1.5rem .75rem;
+}
+
+.accordion_content p:last-child,
+.accordion_content p:only-child {
+    padding-bottom: 0;
 }
   
 .accordion_title.active ~ .accordion_content {

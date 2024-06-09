@@ -20,7 +20,7 @@ const Updates = async () => {
                         result.title = release[item];
                         break;
                     case('release_notes'):
-                        result.content = release[item][0].note;  
+                        result.content = release[item][0].note.split('\n\n');   
                         break;
                     default: break;                  
                 }
