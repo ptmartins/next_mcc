@@ -1,9 +1,12 @@
+'use client';
+
 import { FaHome, FaInfoCircle, FaClipboardList, FaCog, FaDatabase, FaBriefcase, FaLayerGroup, FaTools, FaStethoscope } from "react-icons/fa";
 import { HiQueueList } from "react-icons/hi2";
 import { MdAccountCircle, MdOutlineSystemUpdateAlt } from "react-icons/md";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import styles from './Nav.module.css';
 
+import { usePathname } from 'next/navigation';
 import Link from "next/link";
 
 const menus = {
@@ -85,6 +88,10 @@ const menus = {
 };
 
 const Nav = () => {
+
+    const pathName = usePathname();
+    const isActive = (path) => pathName === path;
+
     return(
         <div className={ styles.nav }>
             <div className="logo" >
@@ -103,9 +110,11 @@ const Nav = () => {
                         <div>
                         {menus[key].map((item, index) => {
                             return(
-                                <Link href={ item.path } key={ index } className={ `u-link ${styles.nav__link}` }>
+                                <Link href={ item.path } key={ index } className={isActive(item.path) ? `u-link ${styles.active} ${styles.nav__link}` : `u-link ${styles.nav__link}` }>
+
                                     <i className={ styles.icon }> { item.icon } </i>
                                     <span className={ styles.txt }> { item.txt } </span>
+
                                 </Link>
                             )
                         })}
