@@ -11,7 +11,7 @@ import {
     Title,
     Tooltip,
     Legend,
-  } from 'chart.js';
+} from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { fileSizeConvert, formatTimeStamp } from './utils';
 import LoginForm from '@/components/LoginForm/LoginForm';
@@ -24,7 +24,7 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend
-);    
+);
 
 const setTimeLabels = (count, hoursInterval) => {
     const now = new Date().getTime();
@@ -33,7 +33,7 @@ const setTimeLabels = (count, hoursInterval) => {
 
     let res = now;
 
-    for(let i = count; i > 0; i--) {
+    for (let i = count; i > 0; i--) {
         res -= interval;
         labels.push(new Date(res));
     }
@@ -48,7 +48,8 @@ export default function Home() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleLogin = val => {
-      setIsLoggedIn(val);
+        setIsLoggedIn(val);
+        localStorage.setItem('mccLoggedIn', 'true');
     }
 
     const [data, setData] = useState([]);
@@ -62,17 +63,17 @@ export default function Home() {
      * Fetch data 
      */
     const fetchData = async () => {
-        const response = await fetch('https://mcc-dataserver.vercel.app/api/general');  
+        const response = await fetch('https://mcc-dataserver.vercel.app/api/general');
         const result = await response.json();
-        setData(result); 
+        setData(result);
 
         // if (result && result.jobs_completed_count) {
         //     const count = result.jobs_completed_count.length;
-    
+
         //     if (!labels.length && count > 0) {
         //         setLabels(setTimeLabels(count, 12));
         //     }
-    
+
         //     setChartData({
         //         labels: labels.length ? labels : setTimeLabels(count, 12),
         //         datasets: [
@@ -86,48 +87,61 @@ export default function Home() {
 
     // Fetch data every 10 secs like our MCC
     useEffect(() => {
+        const loggedIn = localStorage.getItem('mccLoggedIn');
+
+        if (loggedIn === null) {
+            localStorage.setItem('mccLoggedIn', 'false');
+            setIsLoggedIn(false);
+        } else {
+            setIsLoggedIn(loggedIn === 'true');
+        }
+
         fetchData();
-        
+
         const dataInterval = setInterval(() => {
             fetchData();
-        }, 10000)
+        }, 10000);
 
         return () => clearInterval(dataInterval);
     }, []);
 
     useEffect(() => {
         console.log(chartData);
-    }, [chartData]); 
+    }, [chartData]);
 
-    return(
+    useEffect(() => {
+        console.log(`isLoggedIn state: ${isLoggedIn}`);
+    }, [isLoggedIn]);
+
+    return (
         isLoggedIn ?
             <Page title="Home">
-                <div className={ `half_half` }>
+                <div className={`half_half`}>
                     <Card title="Details">
-                        <KeyValue label="Version: " value={ data.version } />
-                        <KeyValue label="Service running as user: " value={ data.account } />
-                        <KeyValue label="Process up-time: " value={ formatTimeStamp(data.up_time) } />
-                        <KeyValue label="System up-time: " value={ formatTimeStamp(data.server_up_time) } />
-                        <KeyValue label="Memory usage: " value={ fileSizeConvert(data.memory_usage, undefined, ' ') } />
-                        <KeyValue label="Databases: " value={ data.databases } />
-                        <KeyValue label="Running SOLR instances: " value={ data.solr_instance } />
-                        <KeyValue label="Database backup: " value={ formatTimeStamp(data.last_backup) } /> 
+                        <KeyValue label="Version: " value={data.version} />
+                        <KeyValue label="Service running as user: " value={data.account} />
+                        <KeyValue label="Process up-time: " value={formatTimeStamp(data.up_time)} />
+                        <KeyValue label="System up-time: " value={formatTimeStamp(data.server_up_time)} />
+                        <KeyValue label="Memory usage: " value={fileSizeConvert(data.memory_usage, undefined, ' ')} />
+                        <KeyValue label="Databases: " value={data.databases} />
+                        <KeyValue label="Running SOLR instances: " value={data.solr_instance} />
+                        <KeyValue label="Database backup: " value={formatTimeStamp(data.last_backup)} />
                     </Card>
                     <Card title="Job counts">
-                        <KeyValue label="Processing: " value={ data.processing } />
-                        <KeyValue label="Total completed: " value={ data.completed } />
-                        <KeyValue label="Total failed: " value={ data.failed } />
-                        <KeyValue label="Failed, retryable: " value={ data.retryable_jobs } />
+                        <KeyValue label="Processing: " value={data.processing} />
+                        <KeyValue label="Total completed: " value={data.completed} />
+                        <KeyValue label="Total failed: " value={data.failed} />
+                        <KeyValue label="Failed, retryable: " value={data.retryable_jobs} />
                     </Card>
                 </div>
-                <div className={ `half_half` }>
+                <div className={`half_half`}>
                     <Card title="Jobs completed in the last 12 hours">
 
                     </Card>
                     <Card title="Jobs failed in the last 12 hours">
 
-                        </Card>
-                    </div>
-            </Page> : <LoginForm cb={ handleLogin } />
+                    </Card>
+                </div>
+            </Page> : <LoginForm cb={handleLogin} />
     )
 }
