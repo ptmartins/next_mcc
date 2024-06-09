@@ -2,10 +2,15 @@
 
 import { FiLogOut } from "react-icons/fi";
 import styles from './Header.module.css';
+import { useState, useEffect } from "react";
 
 const Header = ({ version, user }) => {
 
-    const loggedIn = localStorage.getItem('mccLoggedIn');
+    const [loggedIn, setLoggedIn] = useState(null);
+
+    useEffect(() => {
+        setLoggedIn(localStorage.getItem('mccLoggedIn'));
+    }, []);
 
     const handleLogout = () => {
         localStorage.setItem('mccLoggedIn', false);
