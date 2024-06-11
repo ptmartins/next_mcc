@@ -21,6 +21,10 @@
 }
 
 .value {
+    display: flex;
     font-weight: 300;
+    gap: .75rem;
+    justify-content: flex-end;
+    position: relative;
     text-align: end;
 }

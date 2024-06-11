@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Page, KeyValue } from '../components';
+import { Badge, Card, Page, KeyValue } from '../components';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -118,7 +118,7 @@ export default function Home() {
             <Page title="Home">
                 <div className={`half_half`}>
                     <Card title="Details">
-                        <KeyValue label="Version: " value={data.version} />
+                        <KeyValue label="Version: " value={data.version} badge={ <Badge txt="Update available" /> } />
                         <KeyValue label="Service running as user: " value={data.account} />
                         <KeyValue label="Process up-time: " value={formatTimeStamp(data.up_time)} />
                         <KeyValue label="System up-time: " value={formatTimeStamp(data.server_up_time)} />

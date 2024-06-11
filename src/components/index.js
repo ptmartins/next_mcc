@@ -1,4 +1,5 @@
 import Accordion from './Accordion/Accordion.js';
+import Badge from './Badge/Badge.js';
 import Button from './Button/Button.js';
 import Card from './Card/Card.js';
 import Checkbox from './Checkbox/Checkbox.js';
@@ -9,6 +10,7 @@ import Header from './Header/Header.js';
 import Input from './Input/Input.js';
 import KeyValue from './KeyValue/KeyValue.js';
 import Loading from './Loading/Loading.js';
+import LoginForm from './LoginForm/LoginForm.js';
 import Nav from './Nav/Nav.js';
 import Page from './Page/Page.js';
 import RadioBtn from './RadioBtn/RadioBtn.jsx';
@@ -16,4 +18,4 @@ import Table from './Table/Table.jsx';
 import TabMenu from './TabMenu/TabMenu.jsx';
 
 
-export { Accordion, Button, Card, Checkbox, CopyToClipboard, DateTime, Footer, Header, Input, KeyValue, Loading, Nav, Page, RadioBtn, Table, TabMenu };
+export { Accordion, Badge, Button, Card, Checkbox, CopyToClipboard, DateTime, Footer, Header, Input, KeyValue, Loading, LoginForm, Nav, Page, RadioBtn, Table, TabMenu };
